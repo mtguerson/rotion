@@ -2,7 +2,6 @@ import { app, shell, BrowserWindow, ipcMain } from 'electron'
 import { join, resolve } from 'node:path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import { createFileRoute, createURLRoute } from 'electron-router-dom'
-import icon from '../../resources/icon.png'
 import { createTray } from './tray'
 import { createShortcuts } from './shortcuts'
 
@@ -10,6 +9,13 @@ import './ipc'
 import './store'
 
 function createWindow(): void {
+  const iconPath =
+    process.platform === 'win32'
+      ? join(__dirname, '../../build/icon.ico') // Caminho para o ícone do Windows
+      : process.platform === 'darwin'
+        ? join(__dirname, '../../build/icon.icns') // Caminho para o ícone do macOS
+        : join(__dirname, '../../build/icon.png') // Caminho para o ícone do Linux
+
   const mainWindow = new BrowserWindow({
     width: 1120,
     height: 700,
@@ -21,7 +27,7 @@ function createWindow(): void {
       x: 20,
       y: 20,
     },
-    ...(process.platform === 'linux' ? { icon } : {}),
+    icon: iconPath, // Define o ícone de acordo com o sistema operacional
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
       sandbox: false,
@@ -58,7 +64,7 @@ function createWindow(): void {
 }
 
 if (process.platform === 'darwin') {
-  app.dock.setIcon(resolve(__dirname, 'icon.png'))
+  app.dock.setIcon(resolve(__dirname, '../../build/icon.icns'))
 }
 
 app.whenReady().then(() => {

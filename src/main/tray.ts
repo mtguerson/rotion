@@ -3,10 +3,8 @@ import path from 'node:path'
 
 export function createTray(window: BrowserWindow) {
   const icon = nativeImage.createFromPath(
-    path.resolve(__dirname, '../../build/icon.ico'),
+    path.resolve(__dirname, '../../resources/rotionTemplate.png'),
   )
-
-  console.log(__dirname)
 
   const tray = new Tray(icon)
 

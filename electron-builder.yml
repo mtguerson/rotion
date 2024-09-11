@@ -1,5 +1,5 @@
 appId: com.electron.app
-productName: rotion
+productName: Rotion
 directories:
   buildResources: build
 files:
@@ -31,13 +31,13 @@ dmg:
 linux:
   target:
     - AppImage
-    - snap
     - deb
+    - rpm
+    - pacman
+    - freebsd
   maintainer: electronjs.org
+  synopsis: ${description}
   category: Utility
 appImage:
   artifactName: ${name}-${version}.${ext}
 npmRebuild: false
-publish:
-  provider: generic
-  url: https://example.com/auto-updates
